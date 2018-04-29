@@ -310,7 +310,7 @@ class MLN(object):
             if any([domname not in fulldomain for domname in domnames]):
                 logger.debug('Discarding formula template %s, since it cannot be grounded (domain(s) %s empty).' % \
                              (fstr(ft), ','.join([d for d in domnames if d not in fulldomain])))
-                mln_.rmf(ft)
+                mln_.rmf(ft)  # TODO: Implement this method
         # collect the admissible predicates. a predicate may become inadmissible
         # if either the domain of one of its arguments is empty or there is
         # no formula containing the respective predicate.
@@ -555,6 +555,7 @@ class MLN(object):
         raise Exception('No mln files given.')
 
 
+# TODO: add support for '+'
 def parse_mln(text, searchpaths=['.'], projectpath=None, logic='FirstOrderLogic', grammar='PRACGrammar', mln=None):
     '''
     Reads an MLN from a stream providing a 'read' method.

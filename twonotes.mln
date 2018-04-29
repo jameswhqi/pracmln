@@ -1,34 +1,37 @@
 pitch = {1,2,3,4,5,6,7}
-note = {1,2}
-duration = {1,2,12}
+//duration = {1,2,12}
 chord = {I,IV,V}
 
 Pitch(note, pitch!)
 Duration(note, duration!)
 Chord(note, chord!)
-Succ(note, note)
+SuccN(note, note!)
+EndN(note)
+SuccP(pitch, pitch!)
+EndP(pitch)
 
-Succ(1, 2).
-!Succ(n, n).
-Succ(n1, n2) => !Succ(n2, n1).
+0 Pitch(n, 1)
+0 Pitch(n, 2)
+0 Pitch(n, 3)
+0 Pitch(n, 4)
+0 Pitch(n, 5)
+0 Pitch(n, 6)
+0 Pitch(n, 7)
+0 Duration(n, 1)
+0 Duration(n, 2)
+0 Duration(n, 12)
+0 Chord(n, I)
+0 Chord(n, IV)
+0 Chord(n, V)
 
 2 Chord(n, I) => Pitch(n, 1) v Pitch(n, 3) v Pitch(n, 5)
 2 Chord(n, IV) => Pitch(n, 1) v Pitch(n, 4) v Pitch(n, 6)
 2 Chord(n, V) => Pitch(n, 2) v Pitch(n, 5) v Pitch(n, 7)
 
-5 Succ(n1, n2) ^ Chord(n1, c) => Chord(n2, c)
-1 Succ(n1, n2) ^ Chord(n1, V) => Chord(n2, I)
+2 SuccN(n1, n2) ^ !EndN(n1) ^ Chord(n1, c) => Chord(n2, c)
+1 SuccN(n1, n2) ^ !EndN(n1) ^ Chord(n1, V) => Chord(n2, I)
+1 SuccN(n1, n2) ^ !EndN(n1) ^ Chord(n1, I) => Chord(n2, IV)
 
-2 Succ(n1, n2) ^ Pitch(n1, p) => Pitch(n2, p)
-1 Succ(n1, n2) ^ Pitch(n1, 1) => Pitch(n2, 2)
-1 Succ(n1, n2) ^ Pitch(n1, 2) => Pitch(n2, 3)
-1 Succ(n1, n2) ^ Pitch(n1, 3) => Pitch(n2, 4)
-1 Succ(n1, n2) ^ Pitch(n1, 4) => Pitch(n2, 5)
-1 Succ(n1, n2) ^ Pitch(n1, 5) => Pitch(n2, 6)
-1 Succ(n1, n2) ^ Pitch(n1, 6) => Pitch(n2, 7)
-1 Succ(n1, n2) ^ Pitch(n1, 2) => Pitch(n2, 1)
-1 Succ(n1, n2) ^ Pitch(n1, 3) => Pitch(n2, 2)
-1 Succ(n1, n2) ^ Pitch(n1, 4) => Pitch(n2, 3)
-1 Succ(n1, n2) ^ Pitch(n1, 5) => Pitch(n2, 4)
-1 Succ(n1, n2) ^ Pitch(n1, 6) => Pitch(n2, 5)
-1 Succ(n1, n2) ^ Pitch(n1, 7) => Pitch(n2, 6)
+2 SuccN(n1, n2) ^ !EndN(n1) ^ Pitch(n1, p) => Pitch(n2, p)
+1 SuccN(n1, n2) ^ !EndN(n1) ^ SuccP(p1, p2) ^ !EndP(p1) ^ Pitch(n1, p1) => Pitch(n2, p2)
+1 SuccN(n1, n2) ^ !EndN(n1) ^ SuccP(p2, p1) ^ !EndP(p2) ^ Pitch(n1, p1) => Pitch(n2, p2)

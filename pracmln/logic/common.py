@@ -1305,6 +1305,9 @@ class Logic(object):
         def __ne__(self, other):
             return not self == other
 
+        def __hash__(self):
+            return hash(str(self))
+
     class GroundAtom:
         """
         Represents a ground atom.
